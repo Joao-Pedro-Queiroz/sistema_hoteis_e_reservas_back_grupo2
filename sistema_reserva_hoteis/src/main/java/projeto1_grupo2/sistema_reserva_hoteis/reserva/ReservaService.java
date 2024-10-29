@@ -47,7 +47,7 @@ public class ReservaService {
     }
 
     public List<Reserva> buscarReservasPorUsuario(String idUsuario) {
-        Usuario usuario = usuarioService.buscarUsuario(dto.usuario().getId());
+        Usuario usuario = usuarioService.buscarUsuario(idUsuario);
         List<Reserva> reservas = reservaRepository.findByUsuario(usuario);
         if (reservas.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma reserva encontrada para o usuário");
