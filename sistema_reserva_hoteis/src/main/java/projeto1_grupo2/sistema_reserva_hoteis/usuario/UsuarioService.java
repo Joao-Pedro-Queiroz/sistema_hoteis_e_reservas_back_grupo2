@@ -19,7 +19,7 @@ public class UsuarioService {
         usuario.setNome(dto.nome());
         usuario.setEndereco(dto.endereco());
         usuario.setEmail(dto.email());
-        usuario.setTelefone(dto.telefone);
+        usuario.setTelefone(dto.telefone());
 
         usuario = usuarioRepository.save(usuario);
         return new RetornarUsuarioDTO(usuario.getId(), usuario.getNome(), usuario.getEndereco(), usuario.getEmail(), usuario.getTelefone());
