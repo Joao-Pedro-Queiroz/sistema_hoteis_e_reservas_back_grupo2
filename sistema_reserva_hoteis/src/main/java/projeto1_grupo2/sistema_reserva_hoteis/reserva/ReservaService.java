@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import projeto1_grupo2.sistema_reserva_hoteis.usuario.Usuario;
 import projeto1_grupo2.sistema_reserva_hoteis.usuario.UsuarioRepository;
+import projeto1_grupo2.sistema_reserva_hoteis.usuario.UsuarioService;
 
 import java.util.List;
 
@@ -18,21 +19,19 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
     public RetornarReservaDTO cadastrarReserva(CadastrarReservaDTO dto) {
-        Reserva reserva = new Reserva();
-        Usuario usuario = usuarioRepository.findById(dto.usuarioId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
+        Usuario usuario = usuarioService.buscarUsuario(dto.usuario().getId());
+        Reserva reserva = new Reserva();
         reserva.setUsuario(usuario);
         reserva.setNumero_diarias(dto.numero_diarias());
         reserva.setValor_total(dto.valor_total());
         reserva.setId_hotel(dto.id_hotel());
 
         reserva = reservaRepository.save(reserva);
-
-        return new RetornarReservaDTO(usuario.getId(), reserva.getNumero_diarias(), reserva.getValor_total(), reserva.getId_hotel());
+        return new RetornarReservaDTO(reserva.getId(), reserva.getNumero_diarias(), reserva.getValor_total(), reserva.getId_hotel(), reserva.getUsuario());
     }
 
     public Page<Reserva> listarReservas(String idHotel, Pageable pageable) {
@@ -47,7 +46,8 @@ public class ReservaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva não encontrada"));
     }
 
-    public List<Reserva> buscarReservasPorUsuario(Usuario usuario) {
+    public List<Reserva> buscarReservasPorUsuario(String idUsuario) {
+        Usuario usuario = usuarioService.buscarUsuario(dto.usuario().getId());
         List<Reserva> reservas = reservaRepository.findByUsuario(usuario);
         if (reservas.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhuma reserva encontrada para o usuário");

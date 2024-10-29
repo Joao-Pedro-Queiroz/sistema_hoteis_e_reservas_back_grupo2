@@ -6,10 +6,10 @@ import projeto1_grupo2.sistema_reserva_hoteis.usuario.Usuario;
 public class Reserva {
     @Id
     private String id;
-    private Usuario usuario;
     private Integer numero_diarias;
     private Double valor_total;
     private String id_hotel;
+    private Usuario usuario;
 
     public String getId() {
         return id;

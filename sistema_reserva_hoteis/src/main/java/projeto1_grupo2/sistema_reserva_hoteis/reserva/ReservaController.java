@@ -11,7 +11,7 @@ import projeto1_grupo2.sistema_reserva_hoteis.usuario.Usuario;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/reservas")
+@RequestMapping("/api/v1/reserva")
 public class ReservaController {
 
     @Autowired
@@ -24,14 +24,14 @@ public class ReservaController {
     }
 
     @GetMapping
-    public Page<Reserva> listarReservas(@RequestParam(required = false) String idUsuario, Pageable pageable) {
-        return reservaService.listarReservas(idUsuario, pageable);
+    public Page<Reserva> listarReservas(@RequestParam(required = false) String idHotel, Pageable pageable) {
+        return reservaService.listarReservas(idHotel, pageable);
     }
 
     // buscar reservas por usuario
-    @GetMapping("/usuario/{id}")
-    public List<Reserva> listarReservasPorUsuario(@PathVariable Usuario usuario) {
-        return reservaService.buscarReservasPorUsuario(usuario);
+    @GetMapping("/usuario/{idUsuario}")
+    public List<Reserva> listarReservasPorUsuario(@PathVariable String idUsuario) {
+        return reservaService.buscarReservasPorUsuario(idUsuario);
     }
 
     // buscar reservas por hotel
