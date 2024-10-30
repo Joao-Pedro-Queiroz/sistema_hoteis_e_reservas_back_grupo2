@@ -28,15 +28,9 @@ public class ReservaController {
         return reservaService.listarReservas(idHotel, pageable);
     }
 
-    // buscar reservas por usuario
-    @GetMapping("/usuario/{idUsuario}")
-    public List<Reserva> listarReservasPorUsuario(@PathVariable String idUsuario) {
-        return reservaService.buscarReservasPorUsuario(idUsuario);
-    }
-
-    // buscar reservas por hotel
-    @GetMapping("/hotel/{id}")
-    public List<Reserva> listarReservasPorHotel(@PathVariable String id) {
-        return reservaService.buscarReservasPorHotel(id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluirUsuario(@PathVariable String id) {
+        reservaService.excluirReserva(id);
     }
 }

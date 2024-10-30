@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ReservaRepository extends MongoRepository<Reserva, String> {
-    Page<Reserva> findById_hotel(String id_hotel, Pageable pageable);
+    Page<Reserva> findByIdHotel(String id_hotel, Pageable pageable);
     List<Reserva> findByUsuario(Usuario usuario);
 }

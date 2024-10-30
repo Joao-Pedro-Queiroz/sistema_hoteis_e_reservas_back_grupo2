@@ -3,51 +3,38 @@ package projeto1_grupo2.sistema_reserva_hoteis.reserva;
 import org.springframework.data.annotation.Id;
 import projeto1_grupo2.sistema_reserva_hoteis.usuario.Usuario;
 
+import java.time.LocalDateTime;
+
 public class Reserva {
     @Id
     private String id;
-    private Integer numero_diarias;
-    private Double valor_total;
-    private String id_hotel;
+    private Integer numeroDiaria;
+    private Double valorTotal;
+    private LocalDateTime data;
+    private String idHotel;
     private Usuario usuario;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
 
-    public String getId_hotel() {
-        return id_hotel;
-    }
+    public Integer getNumeroDiaria() { return numeroDiaria; }
 
-    public void setId_hotel(String id_hotel) {
-        this.id_hotel = id_hotel;
-    }
+    public void setNumeroDiaria(Integer numeroDiaria) { this.numeroDiaria = numeroDiaria; }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    public Double getValorTotal() { return valorTotal; }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    public void setValorTotal(Double valorTotal) { this.valorTotal = valorTotal; }
 
-    public Integer getNumero_diarias() {
-        return numero_diarias;
-    }
+    public LocalDateTime getData() { return data; }
 
-    public void setNumero_diarias(Integer numero_diarias) {
-        this.numero_diarias = numero_diarias;
-    }
+    public void setData(LocalDateTime data) { this.data = data; }
 
-    public Double getValor_total() {
-        return valor_total;
-    }
+    public String getIdHotel() { return idHotel; }
 
-    public void setValor_total(Double valor_total) {
-        this.valor_total = valor_total;
-    }
+    public void setIdHotel(String idHotel) { this.idHotel = idHotel; }
+
+    public Usuario getUsuario() { return usuario; }
+
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }

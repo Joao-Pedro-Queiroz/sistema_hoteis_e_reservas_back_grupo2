@@ -6,12 +6,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import projeto1_grupo2.sistema_reserva_hoteis.reserva.ReservaService;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ReservaService reservaService;
 
     public RetornarUsuarioDTO cadastrarUsuario(CadastrarUsuarioDTO dto) {
 
@@ -39,7 +43,9 @@ public class UsuarioService {
 
     public void excluirUsuario(String id) {
         Usuario usuario = buscarUsuario(id);
-        usuarioRepository.delete(usuario);
+        if (reservaService.buscarReservasPorUsuario(usuario).isEmpty()) {
+            usuarioRepository.delete(usuario);
+        }
     }
 
 }
