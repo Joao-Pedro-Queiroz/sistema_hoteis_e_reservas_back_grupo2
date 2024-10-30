@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import projeto1_grupo2.sistema_reserva_hoteis.reserva.ReservaService;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -34,6 +36,10 @@ public class UsuarioService {
             return usuarioRepository.findByNome(nome, pageable);
         }
         return usuarioRepository.findAll(pageable);
+    }
+
+    public List<Usuario> listarTodosUsuarios() {
+        return usuarioRepository.findAll();
     }
 
     public Usuario buscarUsuario(String id) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import projeto1_grupo2.sistema_reserva_hoteis.usuario.Usuario;
 
 import java.util.List;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/v1/reserva")
@@ -26,6 +27,11 @@ public class ReservaController {
     @GetMapping
     public Page<Reserva> listarReservas(@RequestParam(required = false) String idHotel, Pageable pageable) {
         return reservaService.listarReservas(idHotel, pageable);
+    }
+
+    @GetMapping("/relatorio")
+    public HashMap<String, HashMap> relatorioReservas() {
+        return reservaService.relatorioReservas();
     }
 
     @DeleteMapping("/{id}")

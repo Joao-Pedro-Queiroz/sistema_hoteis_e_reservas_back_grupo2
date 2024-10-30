@@ -11,6 +11,7 @@ import projeto1_grupo2.sistema_reserva_hoteis.usuario.UsuarioRepository;
 import projeto1_grupo2.sistema_reserva_hoteis.usuario.UsuarioService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -50,6 +51,24 @@ public class ReservaService {
 
     public List<Reserva> buscarReservasPorUsuario(Usuario usuario) {
         return reservaRepository.findByUsuario(usuario);
+    }
+
+    public HashMap<String, HashMap> relatorioReservas() {
+        List<Usuario> usuarios = usuarioService.listarTodosUsuarios();
+        HashMap<String, HashMap> relatorio = new HashMap<>();
+
+        for (Usuario usuario : usuarios) {
+            List<Reserva> reservasUsuario = buscarReservasPorUsuario(usuario);
+            int totalReservas = reservasUsuario.size();
+
+            HashMap<String, Object> dadosUsuario = new HashMap<>();
+            dadosUsuario.put("totalReservas", totalReservas);
+            dadosUsuario.put("reservas", reservasUsuario);
+
+            relatorio.put(usuario.getNome(), dadosUsuario);
+        }
+
+        return relatorio;
     }
 
     public void excluirReserva(String id) {
