@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import projeto1_grupo2.sistema_reserva_hoteis.reserva.Reserva;
+import projeto1_grupo2.sistema_reserva_hoteis.reserva.ReservaRepository;
 import projeto1_grupo2.sistema_reserva_hoteis.reserva.ReservaService;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ReservaService reservaService;
+    private ReservaRepository reservaRepository;
 
     public RetornarUsuarioDTO cadastrarUsuario(CadastrarUsuarioDTO dto) {
 
@@ -47,9 +49,13 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public List<Reserva> buscarReservasPorUsuario(Usuario usuario) {
+        return reservaRepository.findByUsuario(usuario);
+    }
+
     public void excluirUsuario(String id) {
         Usuario usuario = buscarUsuario(id);
-        if (reservaService.buscarReservasPorUsuario(usuario).isEmpty()) {
+        if (buscarReservasPorUsuario(usuario).isEmpty()) {
             usuarioRepository.delete(usuario);
         }
     }

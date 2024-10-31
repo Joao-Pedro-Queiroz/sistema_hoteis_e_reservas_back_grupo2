@@ -29,9 +29,9 @@ public class ReservaController {
         return reservaService.listarReservas(idHotel, pageable);
     }
 
-    @GetMapping("/relatorio")
-    public HashMap<String, HashMap> relatorioReservas() {
-        return reservaService.relatorioReservas();
+    @GetMapping("/usuario/{idUsuario}")
+    public HashMap<String, HashMap> relatorioReservas(@PathVariable String idUsuario) {
+        return reservaService.relatorioReservas(idUsuario);
     }
 
     @DeleteMapping("/{id}")
