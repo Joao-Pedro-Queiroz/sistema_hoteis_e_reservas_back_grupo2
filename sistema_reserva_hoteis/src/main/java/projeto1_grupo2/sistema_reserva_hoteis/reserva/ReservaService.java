@@ -53,20 +53,18 @@ public class ReservaService {
         return reservaRepository.findByUsuario(usuario);
     }
 
-    public HashMap<String, HashMap> relatorioReservas(String idUsuario) {
+    public ReservaUsuario relatorioReservas(String idUsuario) {
         Usuario usuario = usuarioService.buscarUsuario(idUsuario);
-        HashMap<String, HashMap> relatorio = new HashMap<>();
+        ReservaUsuario reservaUsuario = new ReservaUsuario();
 
-        List<Reserva> reservasUsuario = buscarReservasPorUsuario(usuario);
-        int totalReservas = reservasUsuario.size();
+        List<Reserva> reservas = buscarReservasPorUsuario(usuario);
+        int totalReservas = reservas.size();
 
-        HashMap<String, Object> dadosUsuario = new HashMap<>();
-        dadosUsuario.put("totalReservas", totalReservas);
-        dadosUsuario.put("reservas", reservasUsuario);
+        reservaUsuario.setNomeUsuario(usuario.getNome());
+        reservaUsuario.setTotalReservas(totalReservas);
+        reservaUsuario.setReservas(reservas);
 
-        relatorio.put(usuario.getNome(), dadosUsuario);
-
-        return relatorio;
+        return reservaUsuario;
     }
 
     public void excluirReserva(String id) {

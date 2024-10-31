@@ -30,7 +30,7 @@ public class ReservaController {
     }
 
     @GetMapping("/usuario/{idUsuario}")
-    public HashMap<String, HashMap> relatorioReservas(@PathVariable String idUsuario) {
+    public ReservaUsuario relatorioReservas(@PathVariable String idUsuario) {
         return reservaService.relatorioReservas(idUsuario);
     }
 
